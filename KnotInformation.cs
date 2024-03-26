@@ -7,38 +7,38 @@ public class KnotInformation : MonoBehaviour
 {
 	private SplineContainer splineContainer;
 	private PlayerMove playerMove;
-	//список индексов, которые соответствуют этому узлу
+	//СЃРїРёСЃРѕРє РёРЅРґРµРєСЃРѕРІ, РєРѕС‚РѕСЂС‹Рµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‚ СЌС‚РѕРјСѓ СѓР·Р»Сѓ
 	private List<SplineKnotIndex> myIndexes;
 
-	//В старте получаем ссылки на сплайн контейнер и скрипт движения игрока
+	//Р’ СЃС‚Р°СЂС‚Рµ РїРѕР»СѓС‡Р°РµРј СЃСЃС‹Р»РєРё РЅР° СЃРїР»Р°Р№РЅ РєРѕРЅС‚РµР№РЅРµСЂ Рё СЃРєСЂРёРїС‚ РґРІРёР¶РµРЅРёСЏ РёРіСЂРѕРєР°
 	private void Start()
 	{
 		playerMove = FindObjectOfType<PlayerMove>();
 		if (playerMove == null)
 		{
-			Debug.Log("Не получил компонент PlayerMove");
+			Debug.Log("РќРµ РїРѕР»СѓС‡РёР» РєРѕРјРїРѕРЅРµРЅС‚ PlayerMove");
 		}
 		splineContainer = FindObjectOfType<SplineContainer>();
 		if (splineContainer == null)
 		{
-			Debug.Log("Не получил компонент SplineContainer");
+			Debug.Log("РќРµ РїРѕР»СѓС‡РёР» РєРѕРјРїРѕРЅРµРЅС‚ SplineContainer");
 		}
 	}
 
 	private void OnMouseDown()
 	{
-		//если индексы не установлены, то установить
+		//РµСЃР»Рё РёРЅРґРµРєСЃС‹ РЅРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅС‹, С‚Рѕ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ
 		if (myIndexes == null)
 		{
 			SetListOfKnotIndex();
 		}
 
-		//попытаться установить индексы узла-цели у игрока
+		//РїРѕРїС‹С‚Р°С‚СЊСЃСЏ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РёРЅРґРµРєСЃС‹ СѓР·Р»Р°-С†РµР»Рё Сѓ РёРіСЂРѕРєР°
 		playerMove.TrySetTarget(myIndexes, transform.position);
 	}
 
-	//устанавливаем индексы данного узла
-	//то есть индексы knots, которые закреплены за этим узлом
+	//СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РёРЅРґРµРєСЃС‹ РґР°РЅРЅРѕРіРѕ СѓР·Р»Р°
+	//С‚Рѕ РµСЃС‚СЊ РёРЅРґРµРєСЃС‹ knots, РєРѕС‚РѕСЂС‹Рµ Р·Р°РєСЂРµРїР»РµРЅС‹ Р·Р° СЌС‚РёРј СѓР·Р»РѕРј
 	private void SetListOfKnotIndex()
 	{
 		myIndexes = new List<SplineKnotIndex>();

@@ -27,7 +27,7 @@ public class CurveInformation : MonoBehaviour
 			Spline spline = splineContainer.Splines[0];
 			if (integerPart > countOfCurves - 1)
 			{
-				Debug.Log("НЕДОПУСТИМОЕ ЗНАЧЕНИЕ integerPart");
+				Debug.Log("РќР•Р”РћРџРЈРЎРўРРњРћР• Р—РќРђР§Р•РќРР• integerPart");
 			}
 			float t = integerPart + (fractionalPart / (float)100);
 			Debug.Log($"t = {t}");
@@ -45,9 +45,9 @@ public class CurveInformation : MonoBehaviour
 			Debug.Log($"SumCurveLength = {sumOfLengths}");
 			Debug.Log($"SplineLength = {splineContainer.Splines[0].GetLength()}");
 
-			//Если оставить нижнюю строку, то код будет работать
-			//а логироваться будет какое-то мусорное значение
-			//то есть происходит неведомая х
+			//Р•СЃР»Рё РѕСЃС‚Р°РІРёС‚СЊ РЅРёР¶РЅСЋСЋ СЃС‚СЂРѕРєСѓ, С‚Рѕ РєРѕРґ Р±СѓРґРµС‚ СЂР°Р±РѕС‚Р°С‚СЊ
+			//Р° Р»РѕРіРёСЂРѕРІР°С‚СЊСЃСЏ Р±СѓРґРµС‚ РєР°РєРѕРµ-С‚Рѕ РјСѓСЃРѕСЂРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ
+			//С‚Рѕ РµСЃС‚СЊ РїСЂРѕРёСЃС…РѕРґРёС‚ РЅРµРІРµРґРѕРјР°СЏ С…
 			//Debug.Log($"SplineLength = {splineContainer.Splines[0].GetCurveLength(countOfCurves)}");
 		}
 	}

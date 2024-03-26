@@ -6,6 +6,6 @@ public class ClicksAround : MonoBehaviour
 {
 	private void OnMouseDown()
 	{
-		Debug.Log("На меня нажали!");
+		Debug.Log("РќР° РјРµРЅСЏ РЅР°Р¶Р°Р»Рё!");
 	}
 }

@@ -11,9 +11,9 @@ public class PlayerMove : MonoBehaviour
 	[SerializeField] private float speed = 3f;
 	[SerializeField] private float accuracy = 0.01f;
 
-	//индекс текущего узла (то есть индексы нотов)
+	//РёРЅРґРµРєСЃ С‚РµРєСѓС‰РµРіРѕ СѓР·Р»Р° (С‚Рѕ РµСЃС‚СЊ РёРЅРґРµРєСЃС‹ РЅРѕС‚РѕРІ)
 	private List<SplineKnotIndex> currentIndexes;
-	//индекс того узла, на который хотим переместиться
+	//РёРЅРґРµРєСЃ С‚РѕРіРѕ СѓР·Р»Р°, РЅР° РєРѕС‚РѕСЂС‹Р№ С…РѕС‚РёРј РїРµСЂРµРјРµСЃС‚РёС‚СЊСЃСЏ
 	private List<SplineKnotIndex> targetIndexes;
 	private Vector3 targetKnotPosition;
 
@@ -22,12 +22,12 @@ public class PlayerMove : MonoBehaviour
 	private bool endingMovement;
 
 	private float distancePercentage;
-	//хранит тройку номер сплайна-номер индекса откуда идем-номер индекса куда идем
+	//С…СЂР°РЅРёС‚ С‚СЂРѕР№РєСѓ РЅРѕРјРµСЂ СЃРїР»Р°Р№РЅР°-РЅРѕРјРµСЂ РёРЅРґРµРєСЃР° РѕС‚РєСѓРґР° РёРґРµРј-РЅРѕРјРµСЂ РёРЅРґРµРєСЃР° РєСѓРґР° РёРґРµРј
 	private int3 wayData;
 
 	private void Start()
 	{
-		//Хотим вычислить currentIndexes
+		//РҐРѕС‚РёРј РІС‹С‡РёСЃР»РёС‚СЊ currentIndexes
 		currentIndexes = new List<SplineKnotIndex>();
 		targetIndexes = new List<SplineKnotIndex>();
 		for (int i = 0; i < splineContainer.Splines.Count; i++)
@@ -48,7 +48,7 @@ public class PlayerMove : MonoBehaviour
 
 	private void Update()
 	{
-		//начинаем движение, если узлы не равны, соседние и мы не двигаемся
+		//РЅР°С‡РёРЅР°РµРј РґРІРёР¶РµРЅРёРµ, РµСЃР»Рё СѓР·Р»С‹ РЅРµ СЂР°РІРЅС‹, СЃРѕСЃРµРґРЅРёРµ Рё РјС‹ РЅРµ РґРІРёРіР°РµРјСЃСЏ
 		if (!AreEqual(currentIndexes, targetIndexes)
 			&& AreAdjacent(currentIndexes, targetIndexes)
 			&& !isMoving)
@@ -59,7 +59,7 @@ public class PlayerMove : MonoBehaviour
 
 		if (isMoving)
 		{
-			Move();//указать внутри, что мы закончиваем движение (ендинг = тру)
+			Move();
 			if (endingMovement)
 			{
 				isMoving = false;
@@ -68,35 +68,35 @@ public class PlayerMove : MonoBehaviour
 		}
 	}
 
-	//Двигаемся из current (wayData.y) в target (wayData.z)
+	//Р”РІРёРіР°РµРјСЃСЏ РёР· current (wayData.y) РІ target (wayData.z)
 	private void Move()
 	{
-		//в начале движения надо установить, где мы находимся
+		//РІ РЅР°С‡Р°Р»Рµ РґРІРёР¶РµРЅРёСЏ РЅР°РґРѕ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ, РіРґРµ РјС‹ РЅР°С…РѕРґРёРјСЃСЏ
 		if (beginningMovement)
 		{
 			distancePercentage = splineContainer.Splines[wayData.x].CurveToSplineT(wayData.y);
 			beginningMovement = false;
 		}
 
-		//идем по направлению сплайна
+		//РёРґРµРј РїРѕ РЅР°РїСЂР°РІР»РµРЅРёСЋ СЃРїР»Р°Р№РЅР°
 		if (wayData.y < wayData.z)
 		{
 			distancePercentage += speed * Time.deltaTime / splineContainer.Splines[wayData.x].GetLength();
 
 			if (distancePercentage > splineContainer.Splines[wayData.x].CurveToSplineT(wayData.z))
 			{
-				//перемещаемся в нужный узел и заканчиваем движение
+				//РїРµСЂРµРјРµС‰Р°РµРјСЃСЏ РІ РЅСѓР¶РЅС‹Р№ СѓР·РµР» Рё Р·Р°РєР°РЅС‡РёРІР°РµРј РґРІРёР¶РµРЅРёРµ
 				EndingMovement();
 			}
 		}
-		//идем против направления сплайна
+		//РёРґРµРј РїСЂРѕС‚РёРІ РЅР°РїСЂР°РІР»РµРЅРёСЏ СЃРїР»Р°Р№РЅР°
 		else
 		{
 			distancePercentage -= speed * Time.deltaTime / splineContainer.Splines[wayData.x].GetLength();
 
 			if (distancePercentage < splineContainer.Splines[wayData.x].CurveToSplineT(wayData.z))
 			{
-				//перемещаемся в нужный узел и заканчиваем движение
+				//РїРµСЂРµРјРµС‰Р°РµРјСЃСЏ РІ РЅСѓР¶РЅС‹Р№ СѓР·РµР» Рё Р·Р°РєР°РЅС‡РёРІР°РµРј РґРІРёР¶РµРЅРёРµ
 				EndingMovement();
 			}
 		}
@@ -104,14 +104,14 @@ public class PlayerMove : MonoBehaviour
 		Vector3 newPosition = splineContainer.Splines[wayData.x].EvaluatePosition(distancePercentage);
 		transform.position = newPosition;
 
-		//при достижении нужного узла
+		//РїСЂРё РґРѕСЃС‚РёР¶РµРЅРёРё РЅСѓР¶РЅРѕРіРѕ СѓР·Р»Р°
 		if ((transform.position - targetKnotPosition).magnitude < accuracy)
 		{
 			EndingMovement();
 		}
 	}
 
-	//устанавливает значение wayData
+	//СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ Р·РЅР°С‡РµРЅРёРµ wayData
 	private void SetWayData(int3 triple)
 	{
 		foreach (var index in currentIndexes)
@@ -129,7 +129,7 @@ public class PlayerMove : MonoBehaviour
 		}
 	}
 
-	//переместиться в таргет-узел (вызывается, если подошли к нему близко)
+	//РїРµСЂРµРјРµСЃС‚РёС‚СЊСЃСЏ РІ С‚Р°СЂРіРµС‚-СѓР·РµР» (РІС‹Р·С‹РІР°РµС‚СЃСЏ, РµСЃР»Рё РїРѕРґРѕС€Р»Рё Рє РЅРµРјСѓ Р±Р»РёР·РєРѕ)
 	private void TranslateToTarget()
 	{
 		transform.position = targetKnotPosition;
@@ -140,14 +140,14 @@ public class PlayerMove : MonoBehaviour
 		}
 	}
 
-	//окончание Move()
+	//РѕРєРѕРЅС‡Р°РЅРёРµ Move()
 	private void EndingMovement()
 	{
 		endingMovement = true;
 		TranslateToTarget();
 	}
 
-	//имеют ли узлы с индексами list1 и list2 общий сплайн
+	//РёРјРµСЋС‚ Р»Рё СѓР·Р»С‹ СЃ РёРЅРґРµРєСЃР°РјРё list1 Рё list2 РѕР±С‰РёР№ СЃРїР»Р°Р№РЅ
 	private bool HaveCommonSplines(out List<int3> indexes, List<SplineKnotIndex> list1, List<SplineKnotIndex> list2)
 	{
 		indexes = new List<int3>();
@@ -174,8 +174,8 @@ public class PlayerMove : MonoBehaviour
 		return haveCommonSplines;
 	}
 
-	//попытаться установить индексы узла-цели
-	//узел-цель - это узел, к которому мы хотим переместиться
+	//РїРѕРїС‹С‚Р°С‚СЊСЃСЏ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РёРЅРґРµРєСЃС‹ СѓР·Р»Р°-С†РµР»Рё
+	//СѓР·РµР»-С†РµР»СЊ - СЌС‚Рѕ СѓР·РµР», Рє РєРѕС‚РѕСЂРѕРјСѓ РјС‹ С…РѕС‚РёРј РїРµСЂРµРјРµСЃС‚РёС‚СЊСЃСЏ
 	public bool TrySetTarget(List<SplineKnotIndex> newIndexes, Vector3 newPosition)
 	{
 		if (isMoving)
@@ -192,8 +192,8 @@ public class PlayerMove : MonoBehaviour
 		return true;
 	}
 
-	//проверяет, равны ли узлы
-	//через проверку соответствующих индексов
+	//РїСЂРѕРІРµСЂСЏРµС‚, СЂР°РІРЅС‹ Р»Рё СѓР·Р»С‹
+	//С‡РµСЂРµР· РїСЂРѕРІРµСЂРєСѓ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёС… РёРЅРґРµРєСЃРѕРІ
 	private bool AreEqual(List<SplineKnotIndex> list1, List<SplineKnotIndex> list2)
 	{
 		if (list1.Count != list2.Count)
@@ -212,27 +212,27 @@ public class PlayerMove : MonoBehaviour
 		return true;
 	}
 
-	//соседние ли узлы с индексами list1 и list2?
+	//СЃРѕСЃРµРґРЅРёРµ Р»Рё СѓР·Р»С‹ СЃ РёРЅРґРµРєСЃР°РјРё list1 Рё list2?
 	private bool AreAdjacent(List<SplineKnotIndex> list1, List<SplineKnotIndex> list2)
 	{
-		//список троек номер сплайна-меньший узел-больший узел (по номеру на сплайне)
+		//СЃРїРёСЃРѕРє С‚СЂРѕРµРє РЅРѕРјРµСЂ СЃРїР»Р°Р№РЅР°-РјРµРЅСЊС€РёР№ СѓР·РµР»-Р±РѕР»СЊС€РёР№ СѓР·РµР» (РїРѕ РЅРѕРјРµСЂСѓ РЅР° СЃРїР»Р°Р№РЅРµ)
 		List<int3> indexes;
-		//если они не имеют общих сплайнов, то они не соседние
+		//РµСЃР»Рё РѕРЅРё РЅРµ РёРјРµСЋС‚ РѕР±С‰РёС… СЃРїР»Р°Р№РЅРѕРІ, С‚Рѕ РѕРЅРё РЅРµ СЃРѕСЃРµРґРЅРёРµ
 		if (!HaveCommonSplines(out indexes, list1, list2))
 		{
 			return false;
 		}
 
-		//тройка номеров общий сплайн - меньший индекс - больший индекс
+		//С‚СЂРѕР№РєР° РЅРѕРјРµСЂРѕРІ РѕР±С‰РёР№ СЃРїР»Р°Р№РЅ - РјРµРЅСЊС€РёР№ РёРЅРґРµРєСЃ - Р±РѕР»СЊС€РёР№ РёРЅРґРµРєСЃ
 		int3 resultTriple;
-		//надо определить, на каком сплайне слинкованных узлов между ними нет
+		//РЅР°РґРѕ РѕРїСЂРµРґРµР»РёС‚СЊ, РЅР° РєР°РєРѕРј СЃРїР»Р°Р№РЅРµ СЃР»РёРЅРєРѕРІР°РЅРЅС‹С… СѓР·Р»РѕРІ РјРµР¶РґСѓ РЅРёРјРё РЅРµС‚
 		foreach (var triple in indexes)
 		{
 			bool linkedKnotExist = false;
 			for (int i = triple.y + 1; i < triple.z; i++)
 			{
-				//если между интересующими нас узлами найдем линк-узел, то узлы не adjacent
-				//если линк-узлов не найдем, то adjacent (соседние)
+				//РµСЃР»Рё РјРµР¶РґСѓ РёРЅС‚РµСЂРµСЃСѓСЋС‰РёРјРё РЅР°СЃ СѓР·Р»Р°РјРё РЅР°Р№РґРµРј Р»РёРЅРє-СѓР·РµР», С‚Рѕ СѓР·Р»С‹ РЅРµ adjacent
+				//РµСЃР»Рё Р»РёРЅРє-СѓР·Р»РѕРІ РЅРµ РЅР°Р№РґРµРј, С‚Рѕ adjacent (СЃРѕСЃРµРґРЅРёРµ)
 				if (splineContainer.KnotLinkCollection.GetKnotLinks(new SplineKnotIndex(triple.x, i)).Count != 1)
 				{
 					linkedKnotExist = true;

@@ -6,9 +6,9 @@ using UnityEngine;
 using UnityEngine.Splines;
 
 
-//здесь рассматриваются не все методы, а только те, которые показались
-//мне интересными и нужными на данный момент
-//Документацию смотри здесь
+//Р·РґРµСЃСЊ СЂР°СЃСЃРјР°С‚СЂРёРІР°СЋС‚СЃСЏ РЅРµ РІСЃРµ РјРµС‚РѕРґС‹, Р° С‚РѕР»СЊРєРѕ С‚Рµ, РєРѕС‚РѕСЂС‹Рµ РїРѕРєР°Р·Р°Р»РёСЃСЊ
+//РјРЅРµ РёРЅС‚РµСЂРµСЃРЅС‹РјРё Рё РЅСѓР¶РЅС‹РјРё РЅР° РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚
+//Р”РѕРєСѓРјРµРЅС‚Р°С†РёСЋ СЃРјРѕС‚СЂРё Р·РґРµСЃСЊ
 //https://docs.unity3d.com/Packages/com.unity.splines@2.0/api/UnityEngine.Splines.html
 public class TestSplines : MonoBehaviour
 {
@@ -31,7 +31,7 @@ public class TestSplines : MonoBehaviour
 			Debug.Log($"EvaluatePosition(0, 0.5f) = {splineContainer1.EvaluatePosition(0, 0.5f)}");
 			Debug.Log($"EvaluatePosition(0.5f) = {splineContainer1.EvaluatePosition(0.5f)}");
 
-			//Лучше вместо Spline использовать Splines[0]
+			//Р›СѓС‡С€Рµ РІРјРµСЃС‚Рѕ Spline РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Splines[0]
 			Debug.Log($"Info about Spline");
 			Debug.Log($"Closed = {splineContainer1.Spline.Closed}");
 			Debug.Log($"Count = {splineContainer1.Spline.Count}");
@@ -43,7 +43,7 @@ public class TestSplines : MonoBehaviour
 			Debug.Log($"ToArray = {splineContainer1.Spline.ToArray()}");
 			
 			/*
-			//как получить массив всех узлов в сплайне
+			//РєР°Рє РїРѕР»СѓС‡РёС‚СЊ РјР°СЃСЃРёРІ РІСЃРµС… СѓР·Р»РѕРІ РІ СЃРїР»Р°Р№РЅРµ
 			var b = splineContainer1.Splines[0];
 			var d = b.Knots;
 			foreach (var elem in b)
@@ -62,7 +62,7 @@ public class TestSplines : MonoBehaviour
 			Debug.Log($"Equals[0][1]:[0][2] = {splineContainer1.Splines[0][1].Equals(splineContainer1.Splines[0][2])}");
 
 			Debug.Log($"Using SplineUtility");
-			//Аналогично работает Previous
+			//РђРЅР°Р»РѕРіРёС‡РЅРѕ СЂР°Р±РѕС‚Р°РµС‚ Previous
 			Debug.Log($"PositionOfNext[0][0] = {SplineUtility.Next<Spline>(splineContainer1.Splines[0], 0).Position}");
 			Debug.Log($"PositionOfNext[0][0] = {splineContainer1.Splines[0].Next<Spline>(0).Position}");
 		}
@@ -79,7 +79,7 @@ public class TestSplines : MonoBehaviour
 			Debug.Log($"EvaluatePosition(0, 0.5f) = {splineContainer2.EvaluatePosition(0, 0.5f)}");
 			Debug.Log($"EvaluatePosition(0.5f) = {splineContainer2.EvaluatePosition(0.5f)}");
 
-			//Лучше вместо Spline использовать Splines[0]
+			//Р›СѓС‡С€Рµ РІРјРµСЃС‚Рѕ Spline РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Splines[0]
 			Debug.Log($"Info about Spline");
 			Debug.Log($"Closed = {splineContainer2.Spline.Closed}");
 			Debug.Log($"Count = {splineContainer2.Spline.Count}");
@@ -100,7 +100,7 @@ public class TestSplines : MonoBehaviour
 			Debug.Log($"Equals[0][1]:[1][0] = {splineContainer2.Splines[0][1].Equals(splineContainer2.Splines[1][0])}");
 
 			Debug.Log($"Using SplineUtility");
-			//Аналогично работает Previous
+			//РђРЅР°Р»РѕРіРёС‡РЅРѕ СЂР°Р±РѕС‚Р°РµС‚ Previous
 			Debug.Log($"PositionOfNext[0][0] = {SplineUtility.Next<Spline>(splineContainer2.Splines[0], 0).Position}");
 			Debug.Log($"PositionOfNext[0][0] = {splineContainer2.Splines[0].Next<Spline>(0).Position}");
 		}
@@ -117,7 +117,7 @@ public class TestSplines : MonoBehaviour
 			Debug.Log($"EvaluatePosition(0, 0.5f) = {splineContainer3.EvaluatePosition(0, 0.5f)}");
 			Debug.Log($"EvaluatePosition(0.5f) = {splineContainer3.EvaluatePosition(0.5f)}");
 
-			//Лучше вместо Spline использовать Splines[0]
+			//Р›СѓС‡С€Рµ РІРјРµСЃС‚Рѕ Spline РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Splines[0]
 			Debug.Log($"Info about Spline");
 			Debug.Log($"Closed = {splineContainer3.Spline.Closed}");
 			Debug.Log($"Count = {splineContainer3.Spline.Count}");
@@ -138,7 +138,7 @@ public class TestSplines : MonoBehaviour
 			Debug.Log($"Equals[0][0]:[2][0] = {splineContainer3.Splines[0][0].Equals(splineContainer3.Splines[2][0])}");
 
 			Debug.Log($"Using SplineUtility");
-			//Аналогично работает Previous
+			//РђРЅР°Р»РѕРіРёС‡РЅРѕ СЂР°Р±РѕС‚Р°РµС‚ Previous
 			Debug.Log($"PositionOfNext[0][1] = {SplineUtility.Next<Spline>(splineContainer3.Splines[0], 1).Position}");
 			Debug.Log($"PositionOfNext[0][1] = {splineContainer3.Splines[0].Next<Spline>(1).Position}");
 		}
